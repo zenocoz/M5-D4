@@ -53,6 +53,7 @@ router.post(
       .withMessage("Name is too short")
       .exists()
       .withMessage("Insert name please"),
+    check("repo").isURL().withMessage("enter a valid url"),
   ],
   (req, res, next) => {
     try {
