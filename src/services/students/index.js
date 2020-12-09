@@ -49,7 +49,7 @@ router.post("/", (req, res) => {
   studentsArray.push(newStudent)
 
   fs.writeFileSync(studentsPathFile, JSON.stringify(studentsArray))
-  res.status(201).send({id: newStudent.ID})
+  res.status(201).send({ id: newStudent.ID })
 })
 
 //PUT
@@ -71,6 +71,39 @@ router.put("/:id", (req, res) => {
   fs.writeFileSync(studentsFilePath, JSON.stringify(newStudentsArray))
   res.send("Modify user route")
 })
+
+//Add Project to Student
+// router.put("/:id/:projectId", (req, res) => {
+//   const idStudent = req.params.id
+//   const idProject = req.params.projectId
+//   console.log("ID STUDENT>", idStudent)
+//   console.log("ID PROJECT", idProject)
+
+//   const studentsFilePath = path.join(__dirname, "students.json")
+//   const fileAsABuffer = fs.readFileSync(studentsFilePath)
+//   const fileAsAString = fileAsABuffer.toString()
+//   const studentsArray = JSON.parse(fileAsAString)
+
+//   const projectsFilePath = path.join("./src/services/projects")
+//   projectBuffer = fs.readFileSync(projectBuffer)
+//   const projBuffString = projBuffString.toString()
+//   const projectsArray = JSON.parse(projBuffString)
+
+//   const newStudentsArray = studentsArray.filter(
+//     (student) => student.ID !== req.params.id
+//   )
+//   const student = studentsArray.filter((student) => student.ID === idStudent)
+//   const project = projectsArray.filter((project) => project.ID === idProject)
+//   student.projects.push(project)
+
+//   const modifiedStudent = req.body
+//   modifiedStudent.projects.push(project)
+
+//   newStudentsArray.push(modifiedStudent)
+
+//   fs.writeFileSync(studentsFilePath, JSON.stringify(newStudentsArray))
+//   res.send("Modify user route")
+// })
 
 //DELETE
 

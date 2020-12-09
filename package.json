@@ -20,12 +20,12 @@
   "homepage": "https://github.com/zenocoz/M5-D2#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.8.0",
     "uniqid": "^5.2.0"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.6"
   }
 }
