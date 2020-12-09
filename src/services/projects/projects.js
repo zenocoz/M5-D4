@@ -29,21 +29,23 @@ router.get("/", (req, res) => {
   }
 })
 
-//   router.get("/:id", (req, res) => {
-//     try {
-//       const users = readFile("users.json")
-//       const selectedUser = users.filter((user) => user.ID === req.params.id)
-//       if (selectedUser.length > 0) {
-//         res.send(selectedUser)
-//       } else {
-//         const err = new Error()
-//         err.httpStatusCode = 404
-//         next(err)
-//       }
-//     } catch (error) {
-//       next(error)
-//     }
-//   })
+router.get("/:id", (req, res) => {
+  try {
+    const projects = readFile("projects.json")
+    const singleProject = projects.filter(
+      (project) => project.ID === req.params.id
+    )
+    if (singleProject.length > 0) {
+      res.send(singleProject)
+    } else {
+      const err = new Error()
+      err.httpStatusCode = 404
+      next(err)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
 
 router.post(
   "/",
