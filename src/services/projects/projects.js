@@ -85,28 +85,35 @@ router.post(
   }
 )
 
-//   router.put("/:id", (req, res) => {
-//     const users = readFile("users.json")
-//     const newUsers = users.filter((user) => user.ID !== req.params.id)
-//     const modifiedUser = {
-//       ...req.body,
-//       ID: req.params.id,
-//       modifiedAt: new Date(),
-//     }
+router.put("/:id", (req, res) => {
+  const projects = readFile("projects.json")
+  const newProjectsArray = projects.filter(
+    (project) => project.ID !== req.params.id
+  )
+  const modifiedProject = {
+    ...req.body,
+    ID: req.params.id,
+    modifiedAt: new Date(),
+  }
 
-//     newUsers.push(modifiedUser)
-//     fs.writeFileSync(path.join(__dirname, "users.json"), JSON.stringify(newUsers))
-//     res.send({ id: modifiedUser.ID })
-//   })
+  newProjectsArray.push(modifiedProject)
+  fs.writeFileSync(
+    path.join(__dirname, "users.json"),
+    JSON.stringify(newProjectsArray)
+  )
+  res.send({ id: modifiedProject.ID })
+})
 
-//   router.delete("/:id", (req, res) => {
-//     const users = readFile("users.json")
-//     const modifiedUsers = users.filter((user) => user.ID !== req.params.id)
-//     fs.writeFileSync(
-//       path.join(__dirname, "users.json"),
-//       JSON.stringify(modifiedUsers)
-//     )
-//     res.status(204).send()
-//   })
+router.delete("/:id", (req, res) => {
+  const projects = readFile("projects.json")
+  const modifiedProjectsArray = projects.filter(
+    (project) => project.ID !== req.params.id
+  )
+  fs.writeFileSync(
+    path.join(__dirname, "projects.json"),
+    JSON.stringify(modifiedProjectsArray)
+  )
+  res.status(204).send()
+})
 
 module.exports = router
