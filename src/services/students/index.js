@@ -148,22 +148,22 @@ router.delete("/:id", (req, res) => {
 
 //upload pictures
 
-const studentsFolderPath = join(__dirname, "../../../public/img/students")
+const studentsFolderPath = path.join(__dirname, "../../../public/img/students")
 
-router.post("/:id/upload/", upload.single("avatar"), async (req, res, next) => {
+router.post("/:id/upload", upload.single("avatar"), async (req, res, next) => {
   const id = req.params.id
   console.log(id)
 
-  //   try {
-  //     await writeFile(
-  //       join(studentsFolderPath, req.file.originalname),
-  //       req.file.buffer
-  //     )
-  //     res.send("ok")
-  //   } catch (error) {
-  //     console.log(error)
-  //     next(error)
-  //   }
+  try {
+    await writeFile(
+      path.join(studentsFolderPath, req.file.originalname),
+      req.file.buffer
+    )
+    res.send("ok")
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
 })
 
 module.exports = router
