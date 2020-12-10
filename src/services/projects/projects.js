@@ -1,3 +1,4 @@
+//TOOLS AND MIDDLEWARE
 const express = require("express")
 const router = express.Router()
 const fs = require("fs")
@@ -7,9 +8,13 @@ const { check, validationResult } = require("express-validator")
 const { nextTick } = require("process")
 const { readDB, writeDB } = require("../../utils/utilities")
 
+//PATHS
 const reviewsFilePath = path.join(__dirname, "reviews.json")
 const projectsFilePath = path.join(__dirname, "projects.json")
 
+//------------------------------------------ENDPOINTS--------------------------------//
+
+//------------Projects Endpoints---------------------------------------//
 router.get("/", async (req, res) => {
   try {
     const projects = await readDB(projectsFilePath)
@@ -114,7 +119,7 @@ router.delete("/:id", async (req, res) => {
   res.status(204).send()
 })
 
-//Reviews Section
+//----------------------------------------------Reviews Endpoints--------------------
 
 //get project review
 router.get("/:id/reviews/", async (req, res, next) => {
