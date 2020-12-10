@@ -73,16 +73,25 @@ router.put("/:id", (req, res) => {
 })
 
 //Add Project to Student
-router.put("/:id/:projectId", (req, res) => {
-  const idStudent = req.params.id
-  const idProject = req.params.projectId
-  console.log("ID STUDENT>", idStudent)
-  console.log("ID PROJECT", idProject)
+router.post("/:id/", (req, res) => {
+  //get single student
 
   const studentsFilePath = path.join(__dirname, "students.json")
   const fileAsABuffer = fs.readFileSync(studentsFilePath)
   const fileAsAString = fileAsABuffer.toString()
   const studentsArray = JSON.parse(fileAsAString)
+  const idStudent = req.params.id
+  console.log("ID STUDENT>", idStudent)
+  //get single student
+  const singleStudent = studentsArray.find(
+    (student) => student.ID === idStudent
+  )
+  //create array without single student
+  const newStudentsArray = studentsArray.filter(
+    (student) => student.ID !== req.params.id
+  )
+
+  //add project to projects.json
 
   // path.join(__dirname, "..", "/otherfolder etc
   const projectsFilePath = path.join(__dirname, "../projects", "projects.json")
@@ -90,27 +99,20 @@ router.put("/:id/:projectId", (req, res) => {
   const projBuffString = projectBuffer.toString()
   const projectsArray = JSON.parse(projBuffString)
 
-  const newStudentsArray = studentsArray.filter(
-    //array without the student
-    (student) => student.ID !== req.params.id
-  )
+  const newProject = req.body
+  console.log(newProject)
+  newProject.ID = uniqid()
+  projectsArray.push(newProject)
+  fs.writeFileSync(projectsFilePath, JSON.stringify(projectsArray))
 
-  const singleStudent = studentsArray.filter(
-    (student) => student.ID === idStudent
-  )
-  console.log(singleStudent)
-  const project = projectsArray.filter((project) => project.ID === idProject)
-  console.log(project)
-  singleStudentProjects = singleStudent.projects
-  console.log(singleStudentProjects)
+  //add project to single student
+  singleStudent.projects.push(newProject)
 
-  // const modifiedStudent = req.body
-  // modifiedStudent.projects.push(project)
+  //add modified student to newStudentsArray
+  newStudentsArray.push(singleStudent)
 
-  // newStudentsArray.push(modifiedStudent)
-
-  // fs.writeFileSync(studentsFilePath, JSON.stringify(newStudentsArray))
-  // res.send("Modify user route")
+  fs.writeFileSync(studentsFilePath, JSON.stringify(newStudentsArray))
+  res.send("Added project to student")
 })
 
 //DELETE
