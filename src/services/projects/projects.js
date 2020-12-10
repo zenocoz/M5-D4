@@ -9,6 +9,7 @@ const { nextTick } = require("process")
 const readFile = (fileName) => {
   const buf = fs.readFileSync(path.join(__dirname, fileName))
   const content = buf.toString()
+  console.log(__dirname)
   return JSON.parse(content)
 }
 
