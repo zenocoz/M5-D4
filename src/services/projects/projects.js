@@ -7,7 +7,7 @@ const { check, validationResult } = require("express-validator")
 const { nextTick } = require("process")
 const { readDB, writeDB } = require("../../utils/utilities")
 
-const reviewsFilePath = path.join(__dirname, "../reviews/reviews.json")
+const reviewsFilePath = path.join(__dirname, "reviews.json")
 const projectsFilePath = path.join(__dirname, "projects.js")
 
 const readFile = (fileName) => {
