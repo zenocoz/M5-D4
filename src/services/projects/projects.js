@@ -125,27 +125,23 @@ router.delete("/:id", (req, res) => {
 
 //get project review
 router.get("/:id/reviews/", async (req, res, next) => {
-  console.log(reviewsFilePath)
-  const idProject = req.params.id
-  const reviewsDB = await readDB(reviewsFilePath)
-  const filteredReviews = reviewsDB.filter(
-    (review) => review.projectID === idProject
-  )
-
-  res.send(filteredReviews)
-  // try {
-  //   const usersDB = await readDB(usersFilePath)
-  //   const user = usersDB.filter((user) => user.ID === req.params.id)
-  //   if (user.length > 0) {
-  //     res.send(user)
-  //   } else {
-  //     const err = new Error()
-  //     err.httpStatusCode = 404
-  //     next(err)
-  //   }
-  // } catch (error) {
-  //   next(error)
-  // }
+  try {
+    console.log(reviewsFilePath)
+    const idProject = req.params.id
+    const reviewsDB = await readDB(reviewsFilePath)
+    if (reviewsDB.length > 0) {
+      const filteredReviews = reviewsDB.filter(
+        (review) => review.projectID === idProject
+      )
+      res.send(filteredReviews)
+    } else {
+      const err = new Error()
+      err.httpStatusCode = 404
+      next(err)
+    }
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.post(

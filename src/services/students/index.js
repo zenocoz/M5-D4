@@ -150,7 +150,7 @@ router.delete("/:id", (req, res) => {
 
 const studentsFolderPath = path.join(__dirname, "../../../public/img/students")
 
-router.post("/:id/upload", upload.single("avatar"), async (req, res, next) => {
+router.post("/:id/upload", upload.single("student"), async (req, res, next) => {
   const id = req.params.id
   console.log(id)
 
