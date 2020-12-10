@@ -23,6 +23,7 @@ server.use("/projects", projectsRoutes)
 // server.use("/reviews", reviewsRoutes)
 server.use("/students", studentsRoutes)
 server.use("/files", filesRoutes)
+// server.use(express.static("public"))
 
 server.use(notFoundErrorHandler)
 server.use(unauthorizedErrorHandler)
