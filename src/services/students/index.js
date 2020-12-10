@@ -2,6 +2,11 @@ const express = require("express")
 const fs = require("fs") //core nodejs module (file system)
 const path = require("path") //core module, i will be sure to be safely creating paths
 const uniqid = require("uniqid") //third party module
+const multer = require("multer")
+const upload = multer({})
+const { writeFile, createReadStream } = require("fs-extra")
+const { pipeline } = require("stream")
+const { readDB, writeDB } = require("../../utils/utilities")
 
 const router = express.Router() //lets me create a collection of endpoints(router.get(), router.post() ecc)
 
@@ -139,6 +144,26 @@ router.delete("/:id", (req, res) => {
   fs.writeFileSync(studentsFilePath, JSON.stringify(newStudentsArray))
 
   res.status(204).send()
+})
+
+//upload pictures
+
+const studentsFolderPath = join(__dirname, "../../../public/img/students")
+
+router.post("/:id/upload/", upload.single("avatar"), async (req, res, next) => {
+  const id = req.params.id
+  console.log(id)
+
+  //   try {
+  //     await writeFile(
+  //       join(studentsFolderPath, req.file.originalname),
+  //       req.file.buffer
+  //     )
+  //     res.send("ok")
+  //   } catch (error) {
+  //     console.log(error)
+  //     next(error)
+  //   }
 })
 
 module.exports = router
