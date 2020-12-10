@@ -5,6 +5,10 @@ const path = require("path")
 const uniqid = require("uniqid")
 const { check, validationResult } = require("express-validator")
 const { nextTick } = require("process")
+const { readDB, writeDB } = require("../../utils/utilities")
+
+const reviewsFilePath = path.join(__dirname, "../reviews/reviews.json")
+const projectsFilePath = path.join(__dirname, "projects.js")
 
 const readFile = (fileName) => {
   const buf = fs.readFileSync(path.join(__dirname, fileName))
@@ -116,5 +120,74 @@ router.delete("/:id", (req, res) => {
   )
   res.status(204).send()
 })
+
+//get project review
+router.get("/:id/reviews/", async (req, res, next) => {
+  console.log(reviewsFilePath)
+  try {
+    const usersDB = await readDB(usersFilePath)
+    const user = usersDB.filter((user) => user.ID === req.params.id)
+    if (user.length > 0) {
+      res.send(user)
+    } else {
+      const err = new Error()
+      err.httpStatusCode = 404
+      next(err)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+//Comments section
+
+router.post(
+  "/:id/reviews/",
+  [
+    check("name")
+      .isLength({ min: 4 })
+      .withMessage("No way! Name too short!")
+      .exists()
+      .withMessage("Insert a name please!"),
+  ],
+  async (req, res, next) => {
+    const idProject = req.params.id
+    console.log("ID PROJECT", idProject)
+
+    //add comment to project
+
+    const reviewsDB = await readDB(reviewsFilePath)
+    const newReview = {
+      ...req.body,
+      projectID: idProject,
+      modifiedAt: new Date(),
+    }
+    reviewsDB.push(newReview)
+    await writeDB(reviewsFilePath, reviewsDB)
+    res.status(201).send({ "added review to project with ID": idProject })
+
+    // try {
+    //   const errors = validationResult(req)
+    //   if (!errors.isEmpty()) {
+    //     const err = new Error()
+    //     err.message = errors
+    //     err.httpStatusCode = 400
+    //     next(err)
+    //   } else {
+    //     const usersDB = await readDB(usersFilePath)
+    //     const newUser = {
+    //       ...req.body,
+    //       ID: uniqid(),
+    //       modifiedAt: new Date(),
+    //     }
+    //     usersDB.push(newUser)
+    //     await writeDB(usersFilePath, usersDB)
+    //     res.status(201).send({ id: newUser.ID })
+    //   }
+    // } catch (error) {
+    //   next(error)
+    // }
+  }
+)
 
 module.exports = router

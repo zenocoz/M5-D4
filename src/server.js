@@ -1,6 +1,8 @@
 const express = require("express")
 const studentsRoutes = require("./services/students")
 const projectsRoutes = require("./services/projects/projects")
+const reviewsRoutes = require("./services/reviews")
+
 const cors = require("cors")
 const {
   notFoundErrorHandler,
@@ -17,6 +19,7 @@ server.use(cors())
 server.use(express.json())
 
 server.use("/projects", projectsRoutes)
+server.use("/reviews", reviewsRoutes)
 server.use("/students", studentsRoutes)
 
 server.use(notFoundErrorHandler)

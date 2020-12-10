@@ -101,7 +101,7 @@ router.post("/:id/", (req, res) => {
 
   const newProject = req.body
   console.log(newProject)
-  newProject.ID = uniqid()
+  newProject.ID = singleStudent.ID // maybe should have student it
   projectsArray.push(newProject)
   fs.writeFileSync(projectsFilePath, JSON.stringify(projectsArray))
 
@@ -116,6 +116,15 @@ router.post("/:id/", (req, res) => {
 })
 
 //DELETE
+
+// CRUD
+
+// POST  OBJECT AND DB NAME => WRITE
+// GET SINGLE READ => ID AND DB RETURN SINGLE OBJ
+//  GET READ ALL
+//  PUT UPDATE => ID , OBJC TO UPDATE => UPDATE
+
+// ID => DELETE
 
 router.delete("/:id", (req, res) => {
   const studentsFilePath = path.join(__dirname, "students.json")
