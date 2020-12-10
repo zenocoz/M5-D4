@@ -1,16 +1,22 @@
 //TOOLS AND MIDDLEWARE
 const express = require("express")
-const router = express.Router()
 const fs = require("fs")
 const path = require("path")
 const uniqid = require("uniqid")
+const multer = require("multer")
+const { writeFile, createReadStream } = require("fs-extra")
 const { check, validationResult } = require("express-validator")
 const { nextTick } = require("process")
 const { readDB, writeDB } = require("../../utils/utilities")
 
+//Create Middleware Instances
+const router = express.Router()
+const upload = multer({})
+
 //PATHS
 const reviewsFilePath = path.join(__dirname, "reviews.json")
 const projectsFilePath = path.join(__dirname, "projects.json")
+const projectsFolderPath = path.join(__dirname, "../../../public/img/projects")
 
 //------------------------------------------ENDPOINTS--------------------------------//
 
@@ -116,7 +122,7 @@ router.delete("/:id", async (req, res) => {
     path.join(__dirname, "projects.json"),
     JSON.stringify(modifiedProjectsArray)
   )
-  res.status(204).send()
+  res.status(204).send("project deleted")
 })
 
 //----------------------------------------------Reviews Endpoints--------------------
@@ -190,5 +196,39 @@ router.post(
     // }
   }
 )
+
+//UPLOAD PICTURES
+
+router.post("/:id/upload", upload.single("project"), async (req, res, next) => {
+  const id = req.params.id
+  console.log(id)
+
+  try {
+    await writeFile(path.join(projectsFolderPath, `${id}.jpg`), req.file.buffer)
+
+    const projectsArr = await readDB(projectsFilePath)
+    let singleProject = await projectsArr.find((project) => project.ID === id)
+    // if (singleProject.hasOwnProperty("image")) {}
+
+    singleProject = {
+      ...singleProject,
+      image: `http://localhost:3001/img/projects/${singleProject.ID}.jpg)`,
+      modifiedAt: new Date(),
+    }
+    // singleProject.image = `http://localhost:3001/img/projects/${singleProject.ID}.jpg)`
+    // console.log(singleProject)
+
+    const modifiedArray = await projectsArr.filter(
+      (project) => project.ID !== id
+    )
+    await modifiedArray.push(singleProject)
+    await writeDB(projectsFilePath, modifiedArray)
+
+    res.send("ok")
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+})
 
 module.exports = router

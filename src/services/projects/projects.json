@@ -1,21 +1,5 @@
 [
     {
-        "name": "netflix clone",
-        "description": "react",
-        "repo": "github.com/zenocoz",
-        "live": "http://live.com",
-        "ID": "n7879enkkihiopsq",
-        "modifiedAt": "2020-12-09T14:37:55.225Z"
-    },
-    {
-        "name": "spotify clone",
-        "description": "react",
-        "repo": "github.com/fsonci",
-        "live": "http://live.com",
-        "ID": "n78798zskihl2twu",
-        "modifiedAt": "2020-12-09T15:44:52.973Z"
-    },
-    {
         "name": "spotify clone",
         "description": "react",
         "repo": "github.com/fsonci",
@@ -46,21 +30,38 @@
         "ID": "n7879fiskiiva8r3"
     },
     {
-        "name": "gog",
-        "description": "react",
-        "repo": "github.com/fsonci",
-        "live": "http://live.com",
-        "ID": "11s20sb1ukig4b8uh"
-    },
-    {
-        "ID": "n7879clckiiuc2sx"
-    },
-    {
         "name": "gorogoa",
         "description": "react",
         "repo": "github.com/zenocoz",
         "live": "http://live.com",
         "ID": "n7879bmwkij48byj",
         "modifiedAt": "2020-12-10T17:28:48.522Z"
+    },
+    {
+        "name": "spotify clone",
+        "description": "react",
+        "repo": "github.com/fsonci",
+        "live": "http://live.com",
+        "ID": "n78798zskihl2twu",
+        "modifiedAt": "2020-12-09T15:44:52.973Z",
+        "image": "http://localhost:3001/img/projects/n78798zskihl2twu.jpg)"
+    },
+    {
+        "name": "netflix clone",
+        "description": "react",
+        "repo": "github.com/zenocoz",
+        "live": "http://live.com",
+        "ID": "n7879enkkihiopsq",
+        "modifiedAt": "2020-12-09T14:37:55.225Z",
+        "image": "http://localhost:3001/img/projects/n7879enkkihiopsq.jpg)"
+    },
+    {
+        "name": "gog",
+        "description": "react",
+        "repo": "github.com/fsonci",
+        "live": "http://live.com",
+        "ID": "11s20sb1ukig4b8uh",
+        "image": "http://localhost:3001/img/projects/11s20sb1ukig4b8uh.jpg)",
+        "modifiedAt": "2020-12-10T22:20:05.065Z"
     }
 ]

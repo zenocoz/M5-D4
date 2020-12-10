@@ -5,14 +5,9 @@
         "email": "roy@orbison.com",
         "dob": "24-04-1936",
         "ID": "11s20scklkig587zm",
-        "projects": []
-    },
-    {
-        "name": "Johnny",
-        "surname": "Cash",
-        "email": "johny@cash.com",
-        "dob": "26-02-1932",
-        "ID": "n7879clckiiuc2sx"
+        "projects": [],
+        "image": "http://localhost:3001/img/students/11s20scklkig587zm.jpg)",
+        "modifiedAt": "2020-12-10T23:04:07.587Z"
     },
     {
         "name": "Elvis",
@@ -35,9 +30,17 @@
                 "live": "http://live.com",
                 "ID": "11s20sb1ukig4b8uh"
             }
-        ]
+        ],
+        "image": "http://localhost:3001/img/students/11s20sb1ukig4b8uh.jpg)",
+        "modifiedAt": "2020-12-10T23:05:40.259Z"
     },
     {
-        "ID": "n7879fa0kij17tad"
+        "name": "Johnny",
+        "surname": "Cash",
+        "email": "johny@cash.com",
+        "dob": "26-02-1932",
+        "ID": "n7879clckiiuc2sx",
+        "image": "http://localhost:3001/img/students/n7879clckiiuc2sx.jpg)",
+        "modifiedAt": "2020-12-10T23:06:10.365Z"
     }
 ]
