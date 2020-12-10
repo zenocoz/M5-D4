@@ -8,18 +8,11 @@ const { nextTick } = require("process")
 const { readDB, writeDB } = require("../../utils/utilities")
 
 const reviewsFilePath = path.join(__dirname, "reviews.json")
-const projectsFilePath = path.join(__dirname, "projects.js")
+const projectsFilePath = path.join(__dirname, "projects.json")
 
-const readFile = (fileName) => {
-  const buf = fs.readFileSync(path.join(__dirname, fileName))
-  const content = buf.toString()
-  console.log(__dirname)
-  return JSON.parse(content)
-}
-
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const projects = readFile("projects.json")
+    const projects = await readDB(projectsFilePath)
     if (req.query && req.query.name) {
       const filteredProjects = projects.filter(
         (project) =>
@@ -34,9 +27,9 @@ router.get("/", (req, res) => {
   }
 })
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const projects = readFile("projects.json")
+    const projects = await readDB(projectsFilePath)
     const singleProject = projects.filter(
       (project) => project.ID === req.params.id
     )
@@ -62,7 +55,7 @@ router.post(
       .withMessage("Insert name please"),
     check("repo").isURL().withMessage("enter a valid url"),
   ],
-  (req, res, next) => {
+  async (req, res, next) => {
     try {
       const errors = validationResult(req)
       if (!errors.isEmpty()) {
@@ -71,7 +64,7 @@ router.post(
         err.httpStatusCode = 400
         next(err)
       } else {
-        const projects = readFile("projects.json")
+        const projects = await readDB(projectsFilePath)
         const newProject = {
           ...req.body,
           ID: uniqid(),
@@ -82,7 +75,7 @@ router.post(
           path.join(__dirname, "projects.json"),
           JSON.stringify(projects)
         )
-        res.status(201).send({ id: newProject.ID })
+        res.status(201).send({ "project created with id": newProject.ID })
       }
     } catch (error) {
       next(error)
@@ -90,8 +83,8 @@ router.post(
   }
 )
 
-router.put("/:id", (req, res) => {
-  const projects = readFile("projects.json")
+router.put("/:id", async (req, res) => {
+  const projects = await readDB(projectsFilePath)
   const newProjectsArray = projects.filter(
     (project) => project.ID !== req.params.id
   )
@@ -109,8 +102,8 @@ router.put("/:id", (req, res) => {
   res.send({ id: modifiedProject.ID })
 })
 
-router.delete("/:id", (req, res) => {
-  const projects = readFile("projects.json")
+router.delete("/:id", async (req, res) => {
+  const projects = await readDB(projectsFilePath)
   const modifiedProjectsArray = projects.filter(
     (project) => project.ID !== req.params.id
   )

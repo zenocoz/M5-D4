@@ -1,7 +1,7 @@
 const express = require("express")
 const studentsRoutes = require("./services/students")
 const projectsRoutes = require("./services/projects/projects")
-const reviewsRoutes = require("./services/reviews")
+// const reviewsRoutes = require("./services/reviews")
 const filesRoutes = require("./services/files")
 
 const cors = require("cors")
@@ -20,7 +20,7 @@ server.use(cors())
 server.use(express.json())
 
 server.use("/projects", projectsRoutes)
-server.use("/reviews", reviewsRoutes)
+// server.use("/reviews", reviewsRoutes)
 server.use("/students", studentsRoutes)
 server.use("/files", filesRoutes)
 
