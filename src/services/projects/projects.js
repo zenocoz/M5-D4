@@ -8,6 +8,7 @@ const { writeFile, createReadStream } = require("fs-extra")
 const { check, validationResult } = require("express-validator")
 const { nextTick } = require("process")
 const { readDB, writeDB } = require("../../utils/utilities")
+const { createObject } = require("../methods")
 
 //Create Middleware Instances
 const router = express.Router()
@@ -75,18 +76,19 @@ router.post(
         err.httpStatusCode = 400
         next(err)
       } else {
-        const projects = await readDB(projectsFilePath)
-        const newProject = {
-          ...req.body,
-          ID: uniqid(),
-          modifiedAt: new Date(),
-        }
-        projects.push(newProject)
-        fs.writeFileSync(
-          path.join(__dirname, "projects.json"),
-          JSON.stringify(projects)
-        )
-        res.status(201).send({ "project created with id": newProject.ID })
+        // const projects = await readDB(projectsFilePath)
+        // const newProject = {
+        //   ...req.body,
+        //   ID: uniqid(),
+        //   modifiedAt: new Date(),
+        // }
+        // projects.push(newProject)
+        // fs.writeFileSync(
+        //   path.join(__dirname, "projects.json"),
+        //   JSON.stringify(projects)
+        // )
+        const newProjectId = await createObject(req, projectsFilePath)
+        res.status(201).send({ "project created with id": newProjectId })
       }
     } catch (error) {
       next(error)

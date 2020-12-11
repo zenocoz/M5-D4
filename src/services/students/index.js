@@ -173,7 +173,7 @@ router.post("/:id/upload", upload.single("student"), async (req, res, next) => {
     let singleStudent = await studentsArr.find((student) => student.ID === id)
     singleStudent = {
       ...singleStudent,
-      image: `http://localhost:3001/img/students/${singleStudent.ID}.jpg)`,
+      image: `http://localhost:3001/img/students/${singleStudent.ID}.jpg`,
       modifiedAt: new Date(),
     }
 

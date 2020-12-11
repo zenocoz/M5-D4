@@ -3,6 +3,8 @@ const studentsRoutes = require("./services/students")
 const projectsRoutes = require("./services/projects/projects")
 // const reviewsRoutes = require("./services/reviews")
 const filesRoutes = require("./services/files")
+const { join } = require("path")
+const publicFolderPath = join(__dirname, "../public")
 
 const cors = require("cors")
 const {
@@ -23,7 +25,7 @@ server.use("/projects", projectsRoutes)
 // server.use("/reviews", reviewsRoutes)
 server.use("/students", studentsRoutes)
 server.use("/files", filesRoutes)
-// server.use(express.static("public"))
+server.use(express.static(publicFolderPath))
 
 server.use(notFoundErrorHandler)
 server.use(unauthorizedErrorHandler)

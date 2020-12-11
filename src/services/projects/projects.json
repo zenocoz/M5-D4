@@ -44,7 +44,7 @@
         "live": "http://live.com",
         "ID": "n78798zskihl2twu",
         "modifiedAt": "2020-12-09T15:44:52.973Z",
-        "image": "http://localhost:3001/img/projects/n78798zskihl2twu.jpg)"
+        "image": "http://localhost:3001/img/projects/n78798zskihl2twu.jpg"
     },
     {
         "name": "netflix clone",
@@ -53,7 +53,7 @@
         "live": "http://live.com",
         "ID": "n7879enkkihiopsq",
         "modifiedAt": "2020-12-09T14:37:55.225Z",
-        "image": "http://localhost:3001/img/projects/n7879enkkihiopsq.jpg)"
+        "image": "http://localhost:3001/img/projects/n7879enkkihiopsq.jpg"
     },
     {
         "name": "gog",
@@ -61,7 +61,7 @@
         "repo": "github.com/fsonci",
         "live": "http://live.com",
         "ID": "11s20sb1ukig4b8uh",
-        "image": "http://localhost:3001/img/projects/11s20sb1ukig4b8uh.jpg)",
+        "image": "http://localhost:3001/img/projects/11s20sb1ukig4b8uh.jpg",
         "modifiedAt": "2020-12-10T22:20:05.065Z"
     }
 ]
