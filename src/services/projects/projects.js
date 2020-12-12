@@ -8,7 +8,7 @@ const { writeFile, createReadStream } = require("fs-extra")
 const { check, validationResult } = require("express-validator")
 const { nextTick } = require("process")
 const { readDB, writeDB } = require("../../utils/utilities")
-const { createObject } = require("../methods")
+const { Crud } = require("../methods")
 
 //Create Middleware Instances
 const router = express.Router()
@@ -202,10 +202,9 @@ router.post(
 //UPLOAD PICTURES
 
 router.post("/:id/upload", upload.single("project"), async (req, res, next) => {
-  const id = req.params.id
-  console.log(id)
-
   try {
+    const id = req.params.id
+    console.log(id)
     await writeFile(path.join(projectsFolderPath, `${id}.jpg`), req.file.buffer)
 
     const projectsArr = await readDB(projectsFilePath)
