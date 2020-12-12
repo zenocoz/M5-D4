@@ -7,6 +7,7 @@ const multer = require("multer")
 const { writeFile, createReadStream } = require("fs-extra")
 const { pipeline } = require("stream")
 const { readDB, writeDB } = require("../../utils/utilities")
+const { Crud } = require("../methods")
 
 //Middleware Instances
 const router = express.Router() //lets me create a collection of endpoints(router.get(), router.post() ecc)
@@ -17,13 +18,8 @@ const studentsPathFile = path.join(__dirname, "students.json")
 
 //route 1 GET
 router.get("/", async (req, res, next) => {
-  // const fileAsBuffer = fs.readFileSync(studentsPathFile) //returns a buffer, machine readable code, so must be converted
-  // const file = fileAsBuffer.toString() //we want to send a JSON, not a string
-  // const fileJSON = JSON.parse(file)
-  // console.log(fileJSON)
-
   try {
-    const students = await readDB(studentsPathFile)
+    const students = await Crud.readObject(req, studentsPathFile)
     res.send(students)
   } catch (error) {
     next(error)
@@ -33,46 +29,25 @@ router.get("/", async (req, res, next) => {
 //GET single student
 
 router.get("/:id", async (req, res, next) => {
-  // const studentsPathFile = path.join(__dirname, "students.json")
-  // const fileAsBuffer = fs.readFileSync(studentsPathFile)
-  // const file = fileAsBuffer.toString()
-  // const studentsArray = JSON.parse(file)
-  const studentsArray = await readDB(studentsPathFile)
   const idComingFromRequest = req.params.id
-  console.log("----------------------->", idComingFromRequest)
-
-  const student = studentsArray.filter(
-    (student) => student.ID === idComingFromRequest
+  const student = await Crud.readObject(
+    req,
+    studentsPathFile,
+    idComingFromRequest
   )
-  console.log("USER ", student)
-
   res.send(student)
 })
 
 //POST
 router.post("/", async (req, res, next) => {
-  // const studentsPathFile = path.join(__dirname, "students.json")
-  // const fileAsBuffer = fs.readFileSync(studentsPathFile)
-  // const file = fileAsBuffer.toString()
-  // const studentsArray = JSON.parse(file)
-  const studentsArray = await readDB(studentsPathFile)
-  const newStudent = req.body
-  console.log(newStudent)
-  newStudent.ID = uniqid()
+  //TODO check for errors
 
-  studentsArray.push(newStudent)
-  await writeDB(studentsPathFile, studentsArray)
-
-  // fs.writeFileSync(studentsPathFile, JSON.stringify(studentsArray))
-  res.status(201).send({ id: newStudent.ID })
+  const newStudentId = await Crud.createObject(req, studentsPathFile)
+  res.status(201).send({ "student added with id": newStudentId })
 })
 
 //PUT
 router.put("/:id", async (req, res, next) => {
-  // const studentsFilePath = path.join(__dirname, "students.json")
-  // const fileAsABuffer = fs.readFileSync(studentsFilePath)
-  // const fileAsAString = fileAsABuffer.toString()
-  // const studentsArray = JSON.parse(fileAsAString)
   const studentsArray = await readDB(studentsPathFile)
 
   const newStudentsArray = await studentsArray.filter(
@@ -84,7 +59,6 @@ router.put("/:id", async (req, res, next) => {
 
   newStudentsArray.push(modifiedStudent)
 
-  // fs.writeFileSync(studentsFilePath, JSON.stringify(newStudentsArray))
   await writeDB(studentsPathFile, newStudentsArray)
   res.send("Modify user route")
 })

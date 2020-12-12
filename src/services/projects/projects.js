@@ -22,9 +22,11 @@ const projectsFolderPath = path.join(__dirname, "../../../public/img/projects")
 //------------------------------------------ENDPOINTS--------------------------------//
 
 //------------Projects Endpoints---------------------------------------//
+
+//Retrieve all projects
 router.get("/", async (req, res) => {
   try {
-    const projects = await readDB(projectsFilePath)
+    const projects = await Crud.readObject(req, projectsFilePath)
     if (req.query && req.query.name) {
       const filteredProjects = projects.filter(
         (project) =>
@@ -39,18 +41,23 @@ router.get("/", async (req, res) => {
   }
 })
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
   try {
-    const projects = await readDB(projectsFilePath)
-    const singleProject = projects.filter(
-      (project) => project.ID === req.params.id
-    )
-    if (singleProject.length > 0) {
-      res.send(singleProject)
-    } else {
-      const err = new Error()
-      err.httpStatusCode = 404
-      next(err)
+    const project = await Crud.readObject(req, projectsFilePath, req.params.id)
+    // const projects = await readDB(projectsFilePath)
+    // const singleProject = projects.filter(
+    //   (project) => project.ID === req.params.id
+    // )
+
+    // if (singleProject.length > 0) {
+    //   res.send(singleProject)
+    // } else {
+    //   const err = new Error()
+    //   err.httpStatusCode = 404
+    //   next(err)
+    // }
+    if (project) {
+      res.send(project)
     }
   } catch (error) {
     next(error)
@@ -76,18 +83,7 @@ router.post(
         err.httpStatusCode = 400
         next(err)
       } else {
-        // const projects = await readDB(projectsFilePath)
-        // const newProject = {
-        //   ...req.body,
-        //   ID: uniqid(),
-        //   modifiedAt: new Date(),
-        // }
-        // projects.push(newProject)
-        // fs.writeFileSync(
-        //   path.join(__dirname, "projects.json"),
-        //   JSON.stringify(projects)
-        // )
-        const newProjectId = await createObject(req, projectsFilePath)
+        const newProjectId = await Crud.createObject(req, projectsFilePath)
         res.status(201).send({ "project created with id": newProjectId })
       }
     } catch (error) {
