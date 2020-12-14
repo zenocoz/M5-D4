@@ -24,9 +24,9 @@ const projectsFolderPath = path.join(__dirname, "../../../public/img/projects")
 //------------Projects Endpoints---------------------------------------//
 
 //Retrieve all projects
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
-    const projects = await Crud.readObject(req, projectsFilePath)
+    const projects = await Crud.readObject(req, projectsFilePath, () => {})
     if (req.query && req.query.name) {
       const filteredProjects = projects.filter(
         (project) =>
@@ -43,7 +43,12 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const project = await Crud.readObject(req, projectsFilePath, req.params.id)
+    const project = await Crud.readObject(
+      req,
+      next,
+      projectsFilePath,
+      req.params.id
+    )
     // const projects = await readDB(projectsFilePath)
     // const singleProject = projects.filter(
     //   (project) => project.ID === req.params.id

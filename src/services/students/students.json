@@ -1,1 +1,54 @@
-[{"name":"Roy","surname":"Orbison","email":"roy@orbison.com","dob":"24-04-1936","ID":"11s20scklkig587zm","projects":[],"image":"http://localhost:3001/img/students/11s20scklkig587zm.jpg)","modifiedAt":"2020-12-10T23:04:07.587Z"},{"name":"Elvis","surname":"Presley","email":"elvis@elvis.com","dob":"08-01-1935","ID":"11s20sb1ukig4b8uh","projects":[{"name":"spotify","description":"react","repo":"github.com/fsonci","live":"http://live.com","ID":"n7879fiskiiva8r3"},{"name":"gog","description":"react","repo":"github.com/fsonci","live":"http://live.com","ID":"11s20sb1ukig4b8uh"}],"image":"http://localhost:3001/img/students/11s20sb1ukig4b8uh.jpg)","modifiedAt":"2020-12-10T23:05:40.259Z"},{"name":"Johnny","surname":"Cash","email":"johny@cash.com","dob":"26-02-1932","ID":"n7879clckiiuc2sx","image":"http://localhost:3001/img/students/n7879clckiiuc2sx.jpg)","modifiedAt":"2020-12-10T23:06:10.365Z"},{"name":"Federico","surname":"Soncini","email":"roy@orbison.com","dob":"24-04-1936","ID":"n7879l5wkilx61y9","modifiedAt":"2020-12-12T16:34:23.456Z"}]
+[
+    {
+        "name": "Roy",
+        "surname": "Orbison",
+        "email": "roy@orbison.com",
+        "dob": "24-04-1936",
+        "ID": "11s20scklkig587zm",
+        "projects": [],
+        "image": "http://localhost:3001/img/students/11s20scklkig587zm.jpg)",
+        "modifiedAt": "2020-12-10T23:04:07.587Z"
+    },
+    {
+        "name": "Elvis",
+        "surname": "Presley",
+        "email": "elvis@elvis.com",
+        "dob": "08-01-1935",
+        "ID": "11s20sb1ukig4b8uh",
+        "projects": [
+            {
+                "name": "spotify",
+                "description": "react",
+                "repo": "github.com/fsonci",
+                "live": "http://live.com",
+                "ID": "n7879fiskiiva8r3"
+            },
+            {
+                "name": "gog",
+                "description": "react",
+                "repo": "github.com/fsonci",
+                "live": "http://live.com",
+                "ID": "11s20sb1ukig4b8uh"
+            }
+        ],
+        "image": "http://localhost:3001/img/students/11s20sb1ukig4b8uh.jpg)",
+        "modifiedAt": "2020-12-10T23:05:40.259Z"
+    },
+    {
+        "name": "Johnny",
+        "surname": "Cash",
+        "email": "johny@cash.com",
+        "dob": "26-02-1932",
+        "ID": "n7879clckiiuc2sx",
+        "image": "http://localhost:3001/img/students/n7879clckiiuc2sx.jpg)",
+        "modifiedAt": "2020-12-10T23:06:10.365Z"
+    },
+    {
+        "name": "Federico",
+        "surname": "Soncini",
+        "email": "roy@orbison.com",
+        "dob": "24-04-1936",
+        "ID": "n7879l5wkilx61y9",
+        "modifiedAt": "2020-12-12T16:34:23.456Z"
+    }
+]

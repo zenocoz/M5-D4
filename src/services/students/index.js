@@ -30,12 +30,16 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   const idComingFromRequest = req.params.id
-  const student = await Crud.readObject(
+  const response = await Crud.readObject(
     req,
     studentsPathFile,
     idComingFromRequest
   )
-  res.send(student)
+  if (response.hasOwnProperty("httpStatusCode")) {
+    next(response)
+  } else {
+    res.send(response)
+  }
 })
 
 //POST
@@ -64,7 +68,7 @@ router.put("/:id", async (req, res, next) => {
 })
 
 //Add Project to Student
-router.post("/:id/", (req, res) => {
+router.post("/:id/", async (req, res) => {
   //get single student
 
   const studentsFilePath = path.join(__dirname, "students.json")
@@ -72,6 +76,7 @@ router.post("/:id/", (req, res) => {
   const fileAsAString = fileAsABuffer.toString()
   const studentsArray = JSON.parse(fileAsAString)
   const idStudent = req.params.id
+
   console.log("ID STUDENT>", idStudent)
   //get single student
   const singleStudent = studentsArray.find(
@@ -103,6 +108,7 @@ router.post("/:id/", (req, res) => {
   newStudentsArray.push(singleStudent)
 
   fs.writeFileSync(studentsFilePath, JSON.stringify(newStudentsArray))
+
   res.send("Added project to student")
 })
 
